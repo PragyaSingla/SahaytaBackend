@@ -3,6 +3,12 @@ const config = require("config");
 
 const server = '127.0.0.1:27017';
 const database_name = 'sahayta';
+let mongodb_connection_string = 'mongodb://'+server+'/'+database_name;
+
+//take advantage of openshift env vars when available:
+if (process.env.OPENSHIFT_MONGODB_DB_URL) {
+    mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + database_name;
+}
 
 
 //use config module to get the privatekey, if no private key set, end the application
@@ -11,7 +17,7 @@ if (!config.get("myprivatekey")) {
     process.exit(1);
 }
 
-mongoose.connect(`mongodb://${server}/${database_name}`, { useNewUrlParser: true }, function (err, res) {
+mongoose.connect(mongodb_connection_string, { useNewUrlParser: true }, function (err, res) {
     if (err) {
         console.log('Database connection error')
     } else {
