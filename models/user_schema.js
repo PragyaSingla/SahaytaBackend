@@ -11,7 +11,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 // // Generate Password
 // const saltRounds = 10
 // const myPlaintextPassword = 'my-password'
-// const salt = bcrypt.genSaltSync(saltRounds)
+ //const salt = bcrypt.genSaltSync(saltRounds)
 // const passwordHash = bcrypt.hashSync(myPlaintextPassword, salt)
 
 
