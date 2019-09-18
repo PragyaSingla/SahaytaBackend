@@ -6,7 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "bcrypt": "^3.0.6",
     "bcrypt-nodejs": "0.0.3",
     "config": "^3.2.2",
     "cookie-parser": "^1.4.4",
