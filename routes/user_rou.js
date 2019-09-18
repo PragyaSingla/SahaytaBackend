@@ -1,5 +1,5 @@
 const auth = require("../middleware/auth");
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 const { User, validate } = require("../models/user_schema");
 
 var express = require('express');
@@ -27,7 +27,8 @@ router.post('/signup', async (req, res) => {
         department: req.body.department
     });
 
-    user.password = await bcrypt.hash(user.password, 10);
+   // user.password = await bcrypt.hash(user.password, 10);
+   user.password = user.password
     await user.save();
 
     const token = user.generateAuthToken();

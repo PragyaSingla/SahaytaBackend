@@ -1,7 +1,7 @@
 //var userMongo = require('../models/user_schema');
 const { User, validate } = require("../models/user_schema");
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 const config = require('../config/default.json');
 
 
@@ -64,15 +64,16 @@ exports.login = function (req, res, next) {
       //next(err);
       res.status(500).send('Server error');
     } else {
-     
-      if(!user) return  res.status(404).send('User not found!');
 
-      const result = bcrypt.compareSync(req.body.password, user.password)
-      if(!result) return  res.status(401).send('Password not valid!');
+      if (!user) return res.status(404).send('User not found!');
 
-      const  expiresIn  =  24  *  60  *  60;
-      const accessToken = jwt.sign({ id: user._id },  config.myprivatekey, { expiresIn: expiresIn });
-      res.status(200).send({ "username":  user.username, "access_token":  accessToken, "expires_in":  expiresIn});
+      //const result = bcrypt.compareSync(req.body.password, user.password)
+      const result = req.body.password == user.password
+      if (!result) return res.status(401).send('Password not valid!');
+
+      const expiresIn = 24 * 60 * 60;
+      const accessToken = jwt.sign({ id: user._id }, config.myprivatekey, { expiresIn: expiresIn });
+      res.status(200).send({ "username": user.username, "access_token": accessToken, "expires_in": expiresIn });
 
     }
   })
